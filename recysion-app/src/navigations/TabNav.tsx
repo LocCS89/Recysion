@@ -14,16 +14,18 @@ const TabNav = () => {
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
+          let iconColor;
 
           if (route.name === 'Home') {
             iconName = focused ? 'home' : 'home-outline';
+            iconColor = focused ? '#5C8D89' : '#A7D7C5'; // Change color for Home icon
           } else if (route.name === 'Camera') {
             iconName = 'camera-outline';
+            iconColor = '#F4F9F4'; // Set default color for Camera icon
           } else if (route.name === 'Account') {
             iconName = focused ? 'person' : 'person-outline';
+            iconColor = focused ? '#5C8D89' : '#A7D7C5'; // Change color for Account icon
           }
-
-          const iconColor = focused ? '#5C8D89' : '#A7D7C5'; // Change default color here
 
           if (route.name === 'Camera') {
             const circleSize = size * 2.5; // Adjust size if needed

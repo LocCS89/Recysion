@@ -1,66 +1,167 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { Camera } from 'expo-camera';
-import * as Permissions from 'expo-permissions';
+import React, { useState, useEffect, useRef } from "react";
+import { Text, View, StyleSheet, TouchableOpacity, Image } from "react-native";
+import Constants from "expo-constants";
+import { Camera, CameraType } from "expo-camera";
+import * as MediaLibrary from "expo-media-library";
+import Buttonn from "./Component/Buttonn";
+import axios from "axios";
 
-const CameraScreen = () => {
+const API_BASE_URL = "http://48a2-27-72-101-90.ngrok-free.app/api/";
+
+export default function App() {
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
+  const [image, setImage] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
+  const [flash, setFlash] = useState(Camera.Constants.FlashMode.off);
+  const cameraRef = useRef(null);
 
   useEffect(() => {
     (async () => {
-      const { status } = await Permissions.askAsync(Permissions.CAMERA);
-      setHasCameraPermission(status === 'granted');
+      await MediaLibrary.requestPermissionsAsync();
+      const cameraStatus = await Camera.requestCameraPermissionsAsync();
+      setHasCameraPermission(cameraStatus.status === "granted");
     })();
   }, []);
 
-  if (hasCameraPermission === null) {
-    return <View />;
-  }
+  const onHandleUpload = async (image_uri) => {
+    let localUri = image_uri;
+    let filename = localUri.split("/").pop();
+    // Infer the type of the image
+    let match = /\.(\w+)$/.exec(filename);
+    let type = match ? `image/${match[1]}` : `image`;
+    console.log("========", filename, type);
+    // Upload the image using the fetch and FormData APIs
+    let formData = new FormData();
+    // Assume "photo" is the name of the form field the server expects
+    formData.append("user_id", "test1234");
+    formData.append("image", { uri: localUri, name: filename, type });
+    try {
+      await axios.post(API_BASE_URL, formData, {
+        headers: {
+          // Authorization: user.token ? `Bearer ${user.token}` : "",
+          contentType: "multipart/form-data",
+          Accept: "application/json",
+        },
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const takePicture = async () => {
+    if (cameraRef) {
+      try {
+        const data = await cameraRef.current.takePictureAsync();
+        setImage(data.uri);
+        await onHandleUpload(data.uri);
+        // Pass the base64 image to the model for prediction
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
+  const savePicture = async () => {
+    if (image) {
+      try {
+        const asset = await MediaLibrary.createAssetAsync(image);
+        alert("Picture saved! 🎉");
+        setImage(null);
+        console.log("saved successfully");
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
   if (hasCameraPermission === false) {
     return <Text>No access to camera</Text>;
   }
 
-  const flipCamera = () => {
-    setType(
-      type === Camera.Constants.Type.back
-        ? Camera.Constants.Type.front
-        : Camera.Constants.Type.back
-    );
-  };
-
   return (
-    <View style={{ flex: 1 }}>
-      <Camera style={{ flex: 1 }} type={type}>
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => flipCamera()}
+    <View style={styles.container}>
+      {!image ? (
+        <Camera style={styles.camera} type={type} ref={cameraRef} flashMode={flash}>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              paddingHorizontal: 30,
+            }}
           >
-            <Text style={styles.buttonText}>Flip</Text>
-          </TouchableOpacity>
-        </View>
-      </Camera>
+            <Buttonn
+              title=""
+              icon="retweet"
+              onPress={() => {
+                setType(type === CameraType.back ? CameraType.front : CameraType.back);
+              }}
+            />
+            <Buttonn
+              onPress={() =>
+                setFlash(
+                  flash === Camera.Constants.FlashMode.off
+                    ? Camera.Constants.FlashMode.on
+                    : Camera.Constants.FlashMode.off
+                )
+              }
+              icon="flash"
+              color={flash === Camera.Constants.FlashMode.off ? "gray" : "#fff"}
+            />
+          </View>
+        </Camera>
+      ) : (
+        <Image source={{ uri: image }} style={styles.camera} />
+      )}
+
+      <View style={styles.controls}>
+        {image ? (
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              paddingHorizontal: 50,
+            }}
+          >
+            <Buttonn title="Re-take" onPress={() => setImage(null)} icon="retweet" />
+            <Buttonn title="Save" onPress={savePicture} icon="check" />
+          </View>
+        ) : (
+          <Buttonn title="Take a picture" onPress={takePicture} icon="camera" />
+        )}
+      </View>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
-  buttonContainer: {
+  container: {
     flex: 1,
-    backgroundColor: 'transparent',
-    flexDirection: 'row',
-    margin: 20,
+    justifyContent: "center",
+    paddingTop: Constants.statusBarHeight,
+    backgroundColor: "#000",
+    padding: 8,
+  },
+  controls: {
+    flex: 0.5,
   },
   button: {
-    flex: 0.1,
-    alignSelf: 'flex-end',
-    alignItems: 'center',
+    height: 40,
+    borderRadius: 6,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
   },
-  buttonText: {
-    fontSize: 18,
-    color: 'white',
+  text: {
+    fontWeight: "bold",
+    fontSize: 16,
+    color: "#E9730F",
+    marginLeft: 10,
+  },
+  camera: {
+    flex: 5,
+    borderRadius: 20,
+  },
+  topControls: {
+    flex: 1,
   },
 });
-
-export default CameraScreen;

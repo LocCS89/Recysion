@@ -4,6 +4,8 @@ import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity } from 'react
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../navigations/types"; // Import the type
 import HeaderHome  from './Component/HeaderHome';
+import Icon from 'react-native-vector-icons/Ionicons';
+
 
 type MainScreenProps = {
   navigation: NativeStackNavigationProp<RootStackParamList, "Home">;
@@ -40,17 +42,25 @@ const Home: React.FC<MainScreenProps> = ({ navigation }) => {
       </View>
       <View style={styles.iconBoxContainer}>
         <TouchableOpacity style={[styles.iconBox, { backgroundColor: '#A7D7C5' }]} onPress={() => navigation.navigate('Find')}>
+          <Icon name="search-outline" size={24} color="white" />
           <Text style={styles.iconText}>Find</Text>
         </TouchableOpacity>
+
         <TouchableOpacity style={[styles.iconBox, { backgroundColor: '#74B49B' }]} onPress={() => navigation.navigate('DIY')}>
+          <Icon name="hammer-outline" size={24} color="white" />
           <Text style={styles.iconText}>DIY</Text>
         </TouchableOpacity>
+
         <TouchableOpacity style={[styles.iconBox, { backgroundColor: '#5C8D89' }]} onPress={() => navigation.navigate('Items')}>
+          <Icon name="cube-outline" size={24} color="white" />
           <Text style={styles.iconText}>Items</Text>
         </TouchableOpacity>
+
         <TouchableOpacity style={[styles.iconBox, { backgroundColor: '#22A699' }]} onPress={() => navigation.navigate('Blogs')}>
+          <Icon name="newspaper-outline" size={24} color="white" />
           <Text style={styles.iconText}>Blogs</Text>
         </TouchableOpacity>
+
       </View>
 
       <View style={styles.imageList}>
