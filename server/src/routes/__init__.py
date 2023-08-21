@@ -77,9 +77,11 @@ def push_to_queue():
     image_name = f"{doc_id}_before.{img_suffix}"
 
     # Save file and push to queue
-    image.save(os.path.join("images", image_name))
+    img_path = os.path.join("static", image_name)
+    image.save(img_path)
     images.append(image_name)
+    os.system(f"python3 yolov5/detect.py --weights torch_model/best.pt --source {img_path} --project=static --name=detected --exist-ok")
     # global is_running
     # th = threading.Thread(target=on_update_queue)
     # th.start()
-    return {"message": "running"}
+    return {"uri": f"/static/detected/{image_name}"}

@@ -6,14 +6,15 @@ import * as MediaLibrary from "expo-media-library";
 import axios from "axios";
 import Buttonn from './Component/Buttonn'
 
-const API_BASE_URL = "http://48a2-27-72-101-90.ngrok-free.app/api/";
+const API_BASE_URL = "https://58ce-222-252-97-157.ngrok-free.app";
 
-export default function App() {
+export default function CameraPage() {
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
   const [image, setImage] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [flash, setFlash] = useState(Camera.Constants.FlashMode.off);
   const cameraRef = useRef(null);
+  const [resultImageUri, setResultImageUri] = useState(null)
 
   useEffect(() => {
     (async () => {
@@ -29,20 +30,20 @@ export default function App() {
     // Infer the type of the image
     let match = /\.(\w+)$/.exec(filename);
     let type = match ? `image/${match[1]}` : `image`;
-    console.log("========", filename, type);
     // Upload the image using the fetch and FormData APIs
     let formData = new FormData();
     // Assume "photo" is the name of the form field the server expects
     formData.append("user_id", "test1234");
     formData.append("image", { uri: localUri, name: filename, type });
     try {
-      await axios.post(API_BASE_URL, formData, {
+      const res = await axios.post(API_BASE_URL + "/api/", formData, {
         headers: {
           // Authorization: user.token ? `Bearer ${user.token}` : "",
           contentType: "multipart/form-data",
           Accept: "application/json",
         },
       });
+      setResultImageUri(API_BASE_URL + res.data.uri);
     } catch (err) {
       console.log(err);
     }
@@ -77,9 +78,10 @@ export default function App() {
   if (hasCameraPermission === false) {
     return <Text>No access to camera</Text>;
   }
-
+  console.log(resultImageUri);
   return (
     <View style={styles.container}>
+      {resultImageUri && <Image source={{uri: resultImageUri}} style={{width: 500, height: 500}} />}
       {!image ? (
         <Camera style={styles.camera} type={type} ref={cameraRef} flashMode={flash}>
           <View
