@@ -6,6 +6,7 @@ __pycache__/
 # C extensions
 *.so
 ./torch_model
+./static
 # Distribution / packaging
 .Python
 build/
