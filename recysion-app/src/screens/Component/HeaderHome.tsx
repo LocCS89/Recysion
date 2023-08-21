@@ -1,34 +1,33 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
-import { Ionicons } from '@expo/vector-icons'; // Make sure to install 'expo-vector-icons'
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { RootStackParamList } from "../../navigations/types"; // Import the type
-import SimpleHeader from './SimpleHeader';
+import { View, Text, StyleSheet, Image, TouchableOpacity, Dimensions } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
-type MainScreenProps = {
-  // Remove the navigation prop
-};
+type MainScreenProps = {};
 
 const HeaderHome: React.FC<MainScreenProps> = () => {
-  const navigation = useNavigation(); // Get the navigation object using useNavigation hook
+  const navigation = useNavigation();
+  
+  const windowWidth = Dimensions.get('window').width;
 
   return (
     <View style={styles.container}>
-      <Image
-        source={require('../../../img/logo2.png')} 
-        style={styles.icon}
-      />
-      <Text style={styles.headerText}>Recysion</Text>
-      <View style={styles.iconContainer}>
+      <View style={styles.leftContainer}>
+        <Image
+          source={require('../../../img/logo2.png')} 
+          style={[styles.icon, { width: windowWidth * 0.1, height: windowWidth * 0.1 }]}
+        />
+        <Text style={styles.headerText}>Recysion</Text>
+      </View>
+      <View style={styles.rightContainer}>
         <TouchableOpacity style={styles.iconButton}>
-          <Ionicons name="chatbubble-outline" size={24} color="white" onPress={() => navigation.navigate('Messenger')}/>
+          <Ionicons name="chatbubble-outline" size={windowWidth * 0.06} color="white" onPress={() => navigation.navigate('Messenger')}/>
         </TouchableOpacity>
         <TouchableOpacity style={styles.iconButton}>
-          <Ionicons name="settings-outline" size={24} color="white" onPress={() => navigation.navigate('Setting')}/>
+          <Ionicons name="settings-outline" size={windowWidth * 0.06} color="white" onPress={() => navigation.navigate('Setting')}/>
         </TouchableOpacity>
         <TouchableOpacity style={styles.iconButton}>
-          <Ionicons name="menu-outline" size={24} color="white" />
+          <Ionicons name="menu-outline" size={windowWidth * 0.06} color="white" />
         </TouchableOpacity>
       </View>
     </View>
@@ -39,25 +38,28 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    backgroundColor: '#74B49B', // Recycling theme color
+    alignItems: 'center', // Align items vertically
+    backgroundColor: '#74B49B',
     paddingHorizontal: 10,
-    marginTop :0,
+    marginTop: 0,
+    paddingTop: 60,
     height: 100,
-    paddingTop: 60
+  },
+  leftContainer: {
+    flexDirection: 'row',
+    alignItems: 'center', // Align items vertically
+  },
+  rightContainer: {
+    flexDirection: 'row',
   },
   icon: {
-    width: 50,
-    height: 50,
-    marginTop: -14
+    marginTop: -14,
   },
   headerText: {
     fontSize: 20,
     fontWeight: 'bold',
     color: 'white',
-    marginStart: -100
-  },
-  iconContainer: {
-    flexDirection: 'row',
+    marginLeft: 10, // Adjust spacing between logo and title
   },
   iconButton: {
     paddingHorizontal: 10,

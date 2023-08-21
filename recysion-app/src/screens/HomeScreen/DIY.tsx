@@ -1,10 +1,11 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
 import SimpleHeader from '../Component/SimpleHeader';
 
 const DIY = () => {
   return (
-    <><SimpleHeader title="Finding" /><View style={styles.container}>
+    <ScrollView>
+      <><SimpleHeader title="Finding" /><View style={styles.container}>
       <Text style={styles.title}>DIY Recycling Projects</Text>
       <Image
         source={require('../../../img/illustration.png')} // Replace with your image source
@@ -26,6 +27,7 @@ const DIY = () => {
       </View>
       {/* Add more images and project descriptions as needed */}
     </View></>
+    </ScrollView>
   );
 };
 

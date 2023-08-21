@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, ScrollView , Dimensions } from 'react-native';
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../navigations/types"; // Import the type
 import HeaderHome  from './Component/HeaderHome';
@@ -25,8 +25,12 @@ const Home: React.FC<MainScreenProps> = ({ navigation }) => {
     require('../../img/illustration.png'),
   ];
 
+  const headerImageWidth = '100%';
+  const headerImageHeight = (480 / 1920) * Dimensions.get('window').width;
+
   return (
-    <><HeaderHome />
+    <ScrollView>
+      <><HeaderHome />
     <View style={styles.container}>
       <View style={{
         width: '100%',
@@ -34,11 +38,13 @@ const Home: React.FC<MainScreenProps> = ({ navigation }) => {
         marginBottom: 40,
       }}>
         <Image
-          source={require('../../img/header.png')}
-          style={{
-            width: '100%',
-            height: 100
-          }} />
+            source={require('../../img/header.png')}
+            style={{
+              width: headerImageWidth,
+              height: headerImageHeight,
+            }}
+            resizeMode="cover"
+          />
       </View>
       <View style={styles.iconBoxContainer}>
         <TouchableOpacity style={[styles.iconBox, { backgroundColor: '#A7D7C5' }]} onPress={() => navigation.navigate('Find')}>
@@ -85,6 +91,7 @@ const Home: React.FC<MainScreenProps> = ({ navigation }) => {
           )} />
       </View>
     </View></>
+    </ScrollView>
   );
 }
 
@@ -124,6 +131,12 @@ const styles = StyleSheet.create({
     marginRight: 10,
     borderRadius: 10,
   },
+  headerImageContainer: {
+    width: '100%',
+    aspectRatio: 1920 / 480, // Aspect ratio of the original image
+    marginBottom: 40,
+  },
 });
 
 export default Home;
+
