@@ -3,8 +3,8 @@ import { Text, View, StyleSheet, TouchableOpacity, Image } from "react-native";
 import Constants from "expo-constants";
 import { Camera, CameraType } from "expo-camera";
 import * as MediaLibrary from "expo-media-library";
-import Buttonn from "./Component/Buttonn";
 import axios from "axios";
+import Buttonn from './Component/Buttonn'
 
 const API_BASE_URL = "http://48a2-27-72-101-90.ngrok-free.app/api/";
 
