@@ -15,6 +15,7 @@ from pathlib import Path
 from flask import Blueprint, request
 import threading
 from pymongo import MongoClient
+import json
 
 mongo_client = MongoClient('localhost', 27017)
 db = mongo_client.flask_db
@@ -74,14 +75,19 @@ def push_to_queue():
     # Get image and set name of image
     image = request.files['image']
     img_suffix = image.filename.split('.')[-1]
-    image_name = f"{doc_id}_before.{img_suffix}"
+    image_name = f"{doc_id}.{img_suffix}"
+    json_file = f"{doc_id}.json"
 
     # Save file and push to queue
     img_path = os.path.join("static", image_name)
     image.save(img_path)
     images.append(image_name)
-    os.system(f"python3 yolov5/detect.py --weights torch_model/best.pt --source {img_path} --project=static --name=detected --exist-ok")
+    os.system(
+        f"python3 yolov5/detect.py --weights torch_model/best.pt --source {img_path} --project=static --name=detected --exist-ok")
     # global is_running
     # th = threading.Thread(target=on_update_queue)
     # th.start()
-    return {"uri": f"/static/detected/{image_name}"}
+    with open(f"static/detected/{json_file}") as f:
+        obj = json.load(f)
+        print(obj)
+        return obj
