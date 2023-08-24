@@ -10,8 +10,8 @@ const BlogsPage = () => {
       avatar: require('../../../img/userAvatar.png'),
       date: 'August 15, 2023',
       content:
-        'Ôi không! Căn bệnh đẹp trai của mình lại càng tái phát rồi nên có ai muốn mua mấy cái thùng cát tông không?.',
-      image: require('../../../img/illustration.png'),
+        'I want to resell some old clothes for recycling',
+      image: require('../../../img/blogs/post1.jpg'),
       // comments: [
       //   'Absolutely! Recycling helps us protect the environment and lessen our impact on natural resources.',
       //   'I agree. It\'s important for everyone to do their part and recycle responsibly.',
@@ -24,8 +24,8 @@ const BlogsPage = () => {
       avatar: require('../../../img/userAvatar.png'),
       date: 'September 2, 2023',
       content:
-        'Huhu BLG lại thua rồi =(( Tao bán máy tính giá cả ib',
-      image: require('../../../img/illustration.png'),
+        'I just moved and need to sell some cardboard boxes',
+      image: require('../../../img/blogs/post2.png'),
       // comments: [
       //   'That’s amazing! It\'s incredible how small actions can have a big impact.',
       //   'I had no idea! Thanks for sharing this valuable information.',

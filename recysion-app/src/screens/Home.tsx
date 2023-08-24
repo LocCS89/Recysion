@@ -14,15 +14,18 @@ type MainScreenProps = {
 const Home: React.FC<MainScreenProps> = ({ navigation }) => {
 
   const diyImages = [
-    require('../../img/illustration.png'),
-    require('../../img/illustration.png'),
-    require('../../img/illustration.png'),
+    require('../../img/diy/1.png'),
+    require('../../img/diy/2.png'),
+    require('../../img/diy/3.png'),
+    require('../../img/diy/4.png'),
+
   ];
 
   const suggestedImages = [
-    require('../../img/illustration.png'),
-    require('../../img/illustration.png'),
-    require('../../img/illustration.png'),
+    require('../../img/recommendations/1.png'),
+    require('../../img/recommendations/2.png'),
+    require('../../img/recommendations/3.png'),
+    require('../../img/recommendations/4.png'),
   ];
 
   const headerImageWidth = '100%';
@@ -70,7 +73,7 @@ const Home: React.FC<MainScreenProps> = ({ navigation }) => {
       </View>
 
       <View style={styles.imageList}>
-        <Text style={styles.sectionTitle}>Suggested Images</Text>
+        <Text style={styles.sectionTitle}>Recommendations</Text>
         <FlatList
           horizontal
           data={suggestedImages}

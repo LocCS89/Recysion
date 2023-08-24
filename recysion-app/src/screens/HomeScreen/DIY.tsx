@@ -5,10 +5,10 @@ import SimpleHeader from '../Component/SimpleHeader';
 const DIY = () => {
   return (
     <ScrollView>
-      <><SimpleHeader title="Finding" /><View style={styles.container}>
+      <><SimpleHeader title="DIY" /><View style={styles.container}>
       <Text style={styles.title}>DIY Recycling Projects</Text>
       <Image
-        source={require('../../../img/illustration.png')} // Replace with your image source
+        source={require('../../../img/projects/project1.jpg')} // Replace with your image source
         style={styles.image} />
       <View style={styles.projectInfo}>
         <Text style={styles.projectTitle}>Recycled Paper Wall Art</Text>
@@ -17,7 +17,7 @@ const DIY = () => {
         </Text>
       </View>
       <Image
-        source={require('../../../img/illustration.png')} // Replace with your image source
+        source={require('../../../img/projects/project2.jpg')} // Replace with your image source
         style={styles.image} />
       <View style={styles.projectInfo}>
         <Text style={styles.projectTitle}>Plastic Bottle Planters</Text>
