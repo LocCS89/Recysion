@@ -7,14 +7,14 @@ const Items = () => {
   
   // Sample data for items
   const items = [
-    { name: 'Cardboard', status: 'Available', location: 'Hanoi', image: require('../../../img/illustration.png') },
-    { name: 'Old Clothes', status: 'Unavailable', location: 'Hung Yen', image: require('../../../img/illustration.png') },
-    { name: 'Printed Paper', status: 'Available', location: 'Vung Tau', image: require('../../../img/illustration.png') },
-    { name: 'Magazines', status: 'Available', location: 'Ha Nam', image: require('../../../img/illustration.png') },
-    { name: 'Recycled Paper', status: 'Available', location: 'Beijing', image: require('../../../img/illustration.png') },
-    { name: 'Plastic Bottle', status: 'Unavailable', location: 'Da Nang', image: require('../../../img/illustration.png') },
-    { name: 'Aluminum Cans', status: 'Available', location: 'Can Tho', image: require('../../../img/illustration.png') },
-    { name: 'Glass Bottles', status: 'Available', location: 'Ha Long', image: require('../../../img/illustration.png') },
+    { name: 'Cardboard', status: 'Available', location: 'Hanoi', image: require('../../../img/items/cardboard.png') },
+    { name: 'Old Clothes', status: 'Unavailable', location: 'Hung Yen', image: require('../../../img/items/oldclothes.png') },
+    { name: 'Printed Paper', status: 'Available', location: 'Vung Tau', image: require('../../../img/items/printedpaper.png') },
+    { name: 'Magazines', status: 'Available', location: 'Ha Nam', image: require('../../../img/items/magazines.png') },
+    { name: 'Recycled Paper', status: 'Available', location: 'Beijing', image: require('../../../img/items/recycledpaper.png') },
+    { name: 'Plastic Bottle', status: 'Unavailable', location: 'Da Nang', image: require('../../../img/items/plasticbottles.png') },
+    { name: 'Aluminum Cans', status: 'Available', location: 'Can Tho', image: require('../../../img/items/aluminumcans.png') },
+    { name: 'Glass Bottles', status: 'Available', location: 'Ha Long', image: require('../../../img/items/glassbottles.png') },
     // Add more items with status and location
   ];
 

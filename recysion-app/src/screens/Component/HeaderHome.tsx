@@ -40,9 +40,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center', // Align items vertically
     backgroundColor: '#74B49B',
-    paddingHorizontal: 10,
+    paddingHorizontal: 15,
     marginTop: 0,
-    paddingTop: 60,
+    paddingTop: 40,
     height: 100,
   },
   leftContainer: {
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     color: 'white',
-    marginLeft: 10, // Adjust spacing between logo and title
+    marginLeft: 15, // Adjust spacing between logo and title
   },
   iconButton: {
     paddingHorizontal: 10,

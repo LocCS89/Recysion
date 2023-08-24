@@ -5,8 +5,8 @@ import { Camera, CameraType } from "expo-camera";
 import * as MediaLibrary from "expo-media-library";
 import axios from "axios";
 import Buttonn from './Component/Buttonn'
-
-const API_BASE_URL = "https://58ce-222-252-97-157.ngrok-free.app";
+import HandlePopUp from "./Component/HandlePopUp";
+const API_BASE_URL = "https://ngrok.com/s/k8s-ingress";
 
 export default function CameraPage() {
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
@@ -44,6 +44,7 @@ export default function CameraPage() {
         },
       });
       setResultImageUri(API_BASE_URL + res.data.uri);
+      HandlePopUp()
     } catch (err) {
       console.log(err);
     }
