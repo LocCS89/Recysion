@@ -1,0 +1,1 @@
+[{"x1": 719, "y1": 2392, "x2": 1630, "y2": 3331, "confidence": 0.38389381766319275, "class": "Plastic bag", "custom_text": "Plastic bag", "image_height": 4152, "image_width": 2376}, {"x1": 611, "y1": 530, "x2": 1616, "y2": 2435, "confidence": 0.5211740732192993, "class": "Plastic bottle", "custom_text": "Plastic bottle", "image_height": 4152, "image_width": 2376}]
