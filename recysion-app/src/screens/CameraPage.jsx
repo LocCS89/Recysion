@@ -4,9 +4,11 @@ import Constants from "expo-constants";
 import { Camera, CameraType } from "expo-camera";
 import * as MediaLibrary from "expo-media-library";
 import axios from "axios";
-import Buttonn from './Component/Buttonn'
-import HandlePopUp from "./Component/HandlePopUp";
-const API_BASE_URL = "https://ngrok.com/s/k8s-ingress";
+import Buttonn from "./Component/Buttonn";
+import { Button, Center, Popover, Spinner, Stack } from "native-base";
+import DetectedBox from "./Component/DetectedBox";
+// import HandlePopUp from "./Component/HandlePopUp";
+const API_BASE_URL = "https://dc5c-2405-4802-1d10-3a70-347b-bf96-83b5-a3ce.ngrok-free.app";
 
 export default function CameraPage() {
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
@@ -14,7 +16,8 @@ export default function CameraPage() {
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [flash, setFlash] = useState(Camera.Constants.FlashMode.off);
   const cameraRef = useRef(null);
-  const [resultImageUri, setResultImageUri] = useState(null)
+  const [boxes, setBoxes] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -25,6 +28,7 @@ export default function CameraPage() {
   }, []);
 
   const onHandleUpload = async (image_uri) => {
+    setLoading(true);
     let localUri = image_uri;
     let filename = localUri.split("/").pop();
     // Infer the type of the image
@@ -43,10 +47,13 @@ export default function CameraPage() {
           Accept: "application/json",
         },
       });
-      setResultImageUri(API_BASE_URL + res.data.uri);
-      HandlePopUp()
+      console.log(res);
+      setBoxes(res.data);
+      // HandlePopUp()
     } catch (err) {
       console.log(err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -79,60 +86,92 @@ export default function CameraPage() {
   if (hasCameraPermission === false) {
     return <Text>No access to camera</Text>;
   }
-  console.log(resultImageUri);
   return (
-    <View style={styles.container}>
-      {resultImageUri && <Image source={{uri: resultImageUri}} style={{width: 500, height: 500}} />}
-      {!image ? (
-        <Camera style={styles.camera} type={type} ref={cameraRef} flashMode={flash}>
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              paddingHorizontal: 30,
-            }}
-          >
-            <Buttonn
-              title=""
-              icon="retweet"
-              onPress={() => {
-                setType(type === CameraType.back ? CameraType.front : CameraType.back);
-              }}
-            />
-            <Buttonn
-              onPress={() =>
-                setFlash(
-                  flash === Camera.Constants.FlashMode.off
-                    ? Camera.Constants.FlashMode.on
-                    : Camera.Constants.FlashMode.off
-                )
-              }
-              icon="flash"
-              color={flash === Camera.Constants.FlashMode.off ? "gray" : "#fff"}
-            />
-          </View>
-        </Camera>
-      ) : (
-        <Image source={{ uri: image }} style={styles.camera} />
+    <>
+      {loading && (
+        <Center position="absolute" bg="rgba(0,0,0,0.25)" w="100%" h="100%" zIndex={2}>
+          <Spinner size="lg" />
+        </Center>
       )}
 
-      <View style={styles.controls}>
-        {image ? (
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              paddingHorizontal: 50,
-            }}
-          >
-            <Buttonn title="Re-take" onPress={() => setImage(null)} icon="retweet" />
-            <Buttonn title="Save" onPress={savePicture} icon="check" />
-          </View>
+      <View style={styles.container}>
+        {!image ? (
+          <Camera style={styles.camera} type={type} ref={cameraRef} flashMode={flash}>
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                paddingHorizontal: 30,
+              }}
+            >
+              <Buttonn
+                title=""
+                icon="retweet"
+                onPress={() => {
+                  setType(type === CameraType.back ? CameraType.front : CameraType.back);
+                }}
+              />
+              <Buttonn
+                onPress={() =>
+                  setFlash(
+                    flash === Camera.Constants.FlashMode.off
+                      ? Camera.Constants.FlashMode.on
+                      : Camera.Constants.FlashMode.off
+                  )
+                }
+                icon="flash"
+                color={flash === Camera.Constants.FlashMode.off ? "gray" : "#fff"}
+              />
+            </View>
+          </Camera>
         ) : (
-          <Buttonn title="Take a picture" onPress={takePicture} icon="camera" />
+          <Stack style={styles.camera}>
+            <Image source={{ uri: image }} style={styles.camera} />
+            {boxes.map(({ custom_text, x1, y1, x2, y2, image_width, image_height }) => (
+              <Center
+                position="absolute"
+                variant="subtle"
+                borderWidth="2"
+                borderColor="blueGray.600"
+                zIndex={4}
+                style={{
+                  top: String((y1 / image_height) * 100) + "%",
+                  left: String((x1 / image_width) * 100) + "%",
+                  width: String(((x2 - x1) / image_width) * 100) + "%",
+                  height: String(((y2 - y1) / image_height) * 100) + "%",
+                }}
+              >
+                <DetectedBox label={custom_text} />
+              </Center>
+            ))}
+          </Stack>
         )}
+
+        <View style={styles.controls}>
+          {image ? (
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                paddingHorizontal: 50,
+              }}
+            >
+              <Buttonn
+                title="Re-take"
+                onPress={() => {
+                  setImage(null);
+                  setBoxes([]);
+                }}
+                icon="retweet"
+              />
+              <Buttonn title="Save" onPress={savePicture} icon="check" />
+            </View>
+          ) : (
+            <Buttonn title="Take a picture" onPress={takePicture} icon="camera" />
+          )}
+        </View>
       </View>
-    </View>
+    </>
   );
 }
 

@@ -5,7 +5,6 @@ import appTheme from "./src/theme";
 import { Provider } from "react-redux";
 import store from "./src/store";
 import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
 
 export default function App() {
   return (
