@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: 'white'
+    color: '#5C8D89'
   },
   materialList: {
     marginTop: 20,

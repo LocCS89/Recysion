@@ -23,7 +23,9 @@ const DetectedBox = ({ label, ...btnProps }: Props) => {
 
         <Popover.Header>Cách tái chế {label}</Popover.Header>
         <Popover.Body borderTopWidth="0">
-          Rác thải này cần nhét vào đâu đó rồi tự nó mất. Không có đâu, lêu lêu.
+        "
+          Cách tái chế, nhà phát hành đang trong quá trình phát triển
+        "
         </Popover.Body>
       </Popover.Content>
     </Popover>

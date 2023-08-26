@@ -1,0 +1,1 @@
+[{"x1": 900, "y1": 1356, "x2": 1435, "y2": 2694, "confidence": 0.34566962718963623, "class": "Aluminum can", "custom_text": "Aluminum can", "image_height": 4132, "image_width": 2376}, {"x1": 898, "y1": 1338, "x2": 1433, "y2": 2703, "confidence": 0.38258782029151917, "class": "Plastic bottle", "custom_text": "Plastic bottle", "image_height": 4132, "image_width": 2376}]
