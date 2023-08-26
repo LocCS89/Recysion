@@ -27,6 +27,7 @@ mv detect.py yolov5 -i
 
 ```bash
 .\venv\Scripts\activate
+cd server
 flask run --port=3001
 ```
 NEW TERMINAL
@@ -35,6 +36,8 @@ NEW TERMINAL
 ```
 NEW TERMINAL
 ```bash
+cd ..
+cd recysion-app
 yarn start
 ```
 
