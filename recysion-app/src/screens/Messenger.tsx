@@ -4,13 +4,13 @@ import SimpleHeader from './Component/SimpleHeader';
 
 const Messenger = () => {
   const [userList, setUserList] = useState([
-    { id: '1', name: 'Lisa', status: 'Online', avatar: require('../../img/userAvatar.png') },
-    { id: '2', name: 'Rosé', status: 'Offline', avatar: require('../../img/userAvatar.png') },
-    { id: '3', name: 'Jennie', status: 'Online', avatar: require('../../img/userAvatar.png') },
-    { id: '4', name: 'Jisoo', status: 'Offline', avatar: require('../../img/userAvatar.png') },
-    { id: '5', name: 'Ronaldo', status: 'Offline', avatar: require('../../img/userAvatar.png') },
-    { id: '6', name: 'Faker', status: 'Offline', avatar: require('../../img/userAvatar.png') },
-    { id: '7', name: 'Bình onee-san', status: 'Offline', avatar: require('../../img/userAvatar.png') },
+    { id: '1', name: 'User 1', status: 'Online', avatar: require('../../img/userAvatar.png') },
+    { id: '2', name: 'User 2', status: 'Offline', avatar: require('../../img/userAvatar.png') },
+    { id: '3', name: 'User 3', status: 'Online', avatar: require('../../img/userAvatar.png') },
+    { id: '4', name: 'User 4', status: 'Offline', avatar: require('../../img/userAvatar.png') },
+    { id: '5', name: 'User 5', status: 'Offline', avatar: require('../../img/userAvatar.png') },
+    { id: '6', name: 'User 6', status: 'Offline', avatar: require('../../img/userAvatar.png') },
+    { id: '7', name: 'User 7', status: 'Offline', avatar: require('../../img/userAvatar.png') },
 
     // Add more users with their status and avatars
   ]);

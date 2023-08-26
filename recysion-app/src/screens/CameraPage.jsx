@@ -8,7 +8,7 @@ import Buttonn from "./Component/Buttonn";
 import { Button, Center, Popover, Spinner, Stack } from "native-base";
 import DetectedBox from "./Component/DetectedBox";
 // import HandlePopUp from "./Component/HandlePopUp";
-const API_BASE_URL = "https://dc5c-2405-4802-1d10-3a70-347b-bf96-83b5-a3ce.ngrok-free.app";
+const API_BASE_URL = "https://649b-42-112-211-205.ngrok-free.app";
 
 export default function CameraPage() {
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
@@ -18,6 +18,7 @@ export default function CameraPage() {
   const cameraRef = useRef(null);
   const [boxes, setBoxes] = useState([]);
   const [loading, setLoading] = useState(false);
+
 
   useEffect(() => {
     (async () => {

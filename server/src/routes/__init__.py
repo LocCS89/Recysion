@@ -83,7 +83,7 @@ def push_to_queue():
     image.save(img_path)
     images.append(image_name)
     os.system(
-        f"python3 yolov5/detect.py --weights torch_model/best.pt --source {img_path} --project=static --name=detected --exist-ok")
+        f"py yolov5/detect.py --weights torch_model/best.pt --source {img_path} --project=static --name=detected --exist-ok")
     # global is_running
     # th = threading.Thread(target=on_update_queue)
     # th.start()
